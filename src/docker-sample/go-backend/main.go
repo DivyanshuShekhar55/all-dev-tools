@@ -42,7 +42,8 @@ func submitFn(w http.ResponseWriter, r *http.Request) {
 	var payload req
 	err = json.Unmarshal(body, &payload)
 	if err != nil {
-		fmt.Errorf("error while reading json")
+		http.Error(w, "Invalid JSON format", http.StatusBadRequest)
+		return
 	}
 
 	fmt.Printf("%s", payload.Name)
