@@ -27,6 +27,20 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
+
+	conn, err:= connect()
+
+	if err!=nil{
+		http.Error(w, "Failed to connect to db", http.StatusInternalServerError)
+		return
+	}
+
+	// add the user schema for posting data if not exists
+	initSchema(conn)
+
+	defer conn.Close()
+
+	fmt.Println(conn)
 }
 
 func submitFn(w http.ResponseWriter, r *http.Request) {

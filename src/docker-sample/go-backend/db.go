@@ -2,19 +2,25 @@ package main
 
 import (
 	"context"
+	"log"
 
-	"github.com/jackc/pgx/v5"
+	//"github.com/jackc/pgx/v5"
+	"github.com/jackc/pgx/v5/pgxpool"
 )
 
-func connect() (*pgx.Conn, error) {
-	conn_str := "postgres://username:password@localhost:5432"
+func connect() (*pgxpool.Pool, error) {
 
-	conn, err := pgx.Connect(context.Background(), conn_str)
+	ctx  := context.Background()
+
+	conn_str := "postgres://div:div123@localhost:5432"
+
+	pool, err := pgxpool.New(ctx, conn_str)
 
 	if err != nil {
+		log.Fatal("unable to connect")
 		return nil, err
 	}
 
-	return conn, nil
-	
+	return pool, nil
+
 }
