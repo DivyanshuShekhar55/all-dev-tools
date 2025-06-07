@@ -8,10 +8,13 @@ document.getElementById("form").addEventListener("submit", function (e) {
   sendToGoBackend();
 });
 
-const sendToGoBackend = () => {
-  /* To-Do 
-        send request to backend with the body containing the entered name 
-    */
+const sendToGoBackend = async () => {
+  const res = await fetch("http://localhost:8000/submit", {
+    method: "POST",
+    body: JSON.stringify({ name: entered_name }),
+  });
+
+  console.log(res.status);
 
   console.log(entered_name);
 };
